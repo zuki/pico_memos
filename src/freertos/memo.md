@@ -3,7 +3,7 @@
 try-kernelではデータは定期的に取得できるがSSD1331の表示が1回しか
 できないという問題がいまだ未解決だが、FreeRTOSでは問題なくできた。
 
-<video src="running.mov" controls></video>
+詳細は[Raspberry Pi PicoでFreeRTOS](https://github.com/zuki/freertos_app).
 
 # FreeRTOS仕様に関するメモ
 

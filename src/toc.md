@@ -35,10 +35,10 @@
   - [Source/README](freertos/readme_source.md)
   - [Source/portal/RP2040/README](freertos/readme_portal_rp2040.md)
   - [Demo/CORTEX_M0+_RP2040/README](freertos/readme_demo_rp2040.md)
-  - [メモ](freertos/memo.md)
 
 # メモ
 
 - [Pico Wを使う](pico_w/memo.md)
 - [debugprobeを使う](debugprobe/debugprobe.md)
 - [trykernel](trykernel/memo.md)
+- [FreeRTOS](freertos/memo.md)
