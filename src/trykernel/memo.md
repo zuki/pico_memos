@@ -133,3 +133,31 @@ $13 = 0x1300033
 (gdb) p/x *(0xD0000004)
 $14 = 0x1320033
 ```
+
+## 表示が1度しか更新されない問題が解決
+
+`set_w()`,`clr_w()`の理解が間違っており、`spi_set_format()`が正しく動いていなかった。
+以下の変更で問題が解決した。
+
+```bash
+$ git diff e41ca41 d4acfb9 device/spi/spi_rp2040.c
+diff --git a/device/spi/spi_rp2040.c b/device/spi/spi_rp2040.c
+index 3eb4662..c02ed20 100644
+--- a/device/spi/spi_rp2040.c
++++ b/device/spi/spi_rp2040.c
+@@ -65,10 +65,10 @@ static void spi_set_baudrate(UW unit, UW baudrate) {
+ void spi_set_format(UW unit, UINT data_bits, spi_cpol_t cpol, spi_cpha_t cpha, spi_order_t corder) {
+     // SPIを無効に
+     clr_w(SPI_CR1(unit), SPI_CR1_SSE);
+-    set_w(SPI_CR0(unit), ((UW)(data_bits - 1)) |
+-                    ((UW)cpol) << 6 |
+-                    ((UW)cpha) << 7);
+-
++    clr_w(SPI_CR0(unit), 0x000000cf);
++    set_w(SPI_CR0(unit), (UW)(data_bits - 1) |
++                         ((UW)cpol) << 6 |
++                         ((UW)cpha) << 7 );
+     // SPIを最有効化
+     set_w(SPI_CR1(unit), SPI_CR1_SSE);
+ }
+```
